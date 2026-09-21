@@ -28,6 +28,8 @@ employee ─▶ queue (agent.db) ─▶ worker ─▶ supervisor ──ask_info�
 
 ## Run it (no API key needed)
 
+### Python backend demo
+
 ```bash
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -44,6 +46,22 @@ python -m scripts.demo --real                                      # same questi
 python -m scripts.worker                                           # terminal 1
 python -m scripts.ask --employee E001 "What's my leave balance?"  # terminal 2
 ```
+
+### React frontend UI
+
+```bash
+cd frontend
+npm install
+npm run dev -- --host 0.0.0.0 --port 4173
+```
+
+Then open:
+
+```text
+http://localhost:4173/
+```
+
+The frontend is a premium single-page assistant UI for the leave system. It lets the user switch employees, ask leave questions, and see a chat-style conversation in one window while the backend remains the Python agent service.
 
 One question costs about 5–7 model calls with three agents, so the free tier runs out quickly.
 Use the scripted models for everything except a final check.
@@ -119,6 +137,10 @@ absence-assistant/
 │   ├── demo.py         # End-to-end demo
 │   ├── worker.py       # Long-running worker
 │   └── ask.py          # CLI question tool
+├── frontend/
+│   ├── src/            # React single-page UI
+│   ├── package.json    # Frontend dependencies/scripts
+│   └── vite.config.js # Vite config
 ├── tests/
 │   ├── conftest.py     # Test fixtures
 │   ├── test_tools.py   # Tool unit tests
